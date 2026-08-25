@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sdp-postgres
+    environment:
+      POSTGRES_USER: sdp
+      POSTGRES_PASSWORD: sdp_password
+      POSTGRES_DB: sdp_thesis
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sdp -d sdp_thesis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ml-service:
+    build:
+      context: ./services/ml-service
+      dockerfile: Dockerfile
+    container_name: sdp-ml-service
+    env_file:
+      - .env
+    environment:
+      SDP_DATABASE_URL: postgresql://sdp:sdp_password@postgres:5432/sdp_thesis
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/ml-service:/app
+      - ml-data:/app/data
+      - ml-models:/app/trained_models
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  ml-data:
+  ml-models:

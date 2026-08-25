@@ -1,0 +1,17 @@
+{
+  "name": "ts-analyzer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "analyze": "node dist/cli.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "5.7"
+  }
+}
