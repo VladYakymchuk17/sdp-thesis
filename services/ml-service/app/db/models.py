@@ -85,3 +85,32 @@ class PredictionResult(Base):
     explanation = Column(Text)
     model_name = Column(String(100))
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class AnalysisJob(Base):
+    """One full-cycle run: clone, mine, static analysis, SZZ, scoring."""
+
+    __tablename__ = "analysis_jobs"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    repo_id = Column(Integer, nullable=True)
+    repo_url = Column(String(500), nullable=False)
+    branch = Column(String(100), default="main")
+    submitted_by = Column(String(200))
+
+    status = Column(String(20), default="queued")   # queued|running|done|failed|cancelled
+    stage = Column(String(50))                      # current stage key
+    stage_index = Column(Integer, default=0)
+    total_stages = Column(Integer, default=5)
+    progress = Column(Float, default=0.0)           # 0..1 across the whole run
+    message = Column(Text)
+    error = Column(Text)
+
+    commits_mined = Column(Integer, default=0)
+    files_analyzed = Column(Integer, default=0)
+    bug_labels = Column(Integer, default=0)
+    files_scored = Column(Integer, default=0)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    started_at = Column(DateTime, nullable=True)
+    finished_at = Column(DateTime, nullable=True)

@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-ink: #070b12;
+  --color-panel: #101826;
+  --color-panel-2: #162033;
+  --color-line: #243049;
+  --color-mute: #8b9bb8;
+  --color-high: #fb7185;
+  --color-medium: #fbbf24;
+  --color-low: #34d399;
+  --color-accent: #7dd3fc;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 600px at 10% -10%, #1a2744 0%, transparent 55%),
+    radial-gradient(900px 500px at 110% 10%, #3b1d2a 0%, transparent 50%),
+    #070b12;
+  color: #e8eefb;
+  font-family: var(--font-sans);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a3a58 transparent;
+}

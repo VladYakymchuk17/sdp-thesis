@@ -1,0 +1,11 @@
+{
+  "name": "sdp-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
